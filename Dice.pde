@@ -1,16 +1,28 @@
-Die kyle;        
+Die kyle;
+int rollCount = 0;
         void setup()
   {
       size(500,500);
       noLoop();
+
   }
   void draw()
   {
       //your code here
       background(200,200,200);
-      kyle = new Die(200,200);
-      kyle.roll();
-      kyle.show();
+      for (int x = 15; x < 480; x = x + 60)
+      {
+        for (int y = 15; y < 480; y = y + 60)
+        {
+        kyle = new Die(x,y);
+        kyle.roll();
+        kyle.show();
+        }
+      }
+      fill(0,0,0,100);
+      textSize(90);
+      text("Count " + rollCount, 20, 250);
+      rollCount = 0;
   }
   void mousePressed()
   {
@@ -19,26 +31,28 @@ Die kyle;
   class Die //models one single dice cube
   {
       //member variable declarations here
-      int dieX, dieY, dieDot;
+      int dieX, dieY, dieDot, dieDotTot;
       Die(int x, int y) //constructor
       {
           //variable initializations here
           dieDot = 1;
           dieX = x;
           dieY = y;
+          dieDotTot = 0;
       }
       void roll()
       {
           //your code here
           dieDot = 1 + (int)(Math.random()*6);
-          
       }
       void show()
       {
+        rollCount = rollCount+dieDot;
           //your code here
-          fill(255,255,255);
+          fill(225 + (int)(Math.random()*32),225+(int)(Math.random()*32),225 +(int)(Math.random()*32));
           rect(dieX, dieY, 50, 50, 10);
           fill(0,0,0);
+          
         if (dieDot == 1){
           ellipse( dieX + 25, dieY + 25, 9,9);
         }
@@ -47,9 +61,8 @@ Die kyle;
             ellipse( dieX + 15 + 19*i, dieY + 25, 9,9);
         }
         else        if (dieDot == 3){
-           ellipse( dieX + 25, dieY + 25, 9,9);
-           ellipse( dieX + 12 , dieY + 12, 9,9);
-           ellipse( dieX + 38 , dieY + 38, 9,9);
+          for(int x = 0; x < dieDot; x++)
+           ellipse( dieX +12+ 13*x, dieY +12+ 13 *x, 9,9);
         }
         else        if (dieDot == 4){
           for(int i = 0; i < 2; i++)
@@ -67,6 +80,5 @@ Die kyle;
              for (int j = 0; j < 2; j++)
                ellipse( dieX + 11 + 15*i, dieY + 15 + 22* j, 9,9);
         }
-                text("Count " + dieDot, 100,100);
       }
   }
