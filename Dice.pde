@@ -21,7 +21,7 @@ int rollCount = 0;
       }
       fill(0,0,0,100);
       textSize(90);
-      text("Count " + rollCount, 20, 250);
+      text("Count " + rollCount, 35, 250);
       rollCount = 0;
   }
   void mousePressed()
